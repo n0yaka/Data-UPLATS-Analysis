@@ -34,7 +34,7 @@ def train_xgboost(read_revenue_analysis, read_df):
         params = params,
         dtrain = dtrain_reg,
         evals = evals,
-        verbose_eval = 10,
+        verbose_eval = 10, 
         num_boost_round = 100
     )
 
