@@ -15,8 +15,8 @@ def train_xgboost(read_revenue_analysis, read_df):
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.25, random_state=42, stratify=y)
 
-    dtrain_reg = xgboost.DMatrix(x_train, y_train, enable_categorical=True)
-    dtest_reg = xgboost.DMatrix(x_test, y_test, enable_categorical=True)
+    dtrain_reg = xgboost.DMatrix(x_train, y_train)
+    dtest_reg = xgboost.DMatrix(x_test, y_test)
 
     scale_pos_weight = (y_train == 0).sum() / (y_train == 1).sum() #sbb imbalance data mmg pakai formula ni
 
@@ -35,7 +35,8 @@ def train_xgboost(read_revenue_analysis, read_df):
         dtrain = dtrain_reg,
         evals = evals,
         verbose_eval = 10, 
-        num_boost_round = 100
+        num_boost_round = 500,
+        early_stopping_rounds = 20
     )
 
     y_prediction = clf.predict(dtest_reg)

@@ -13,6 +13,7 @@ from imblearn.pipeline import Pipeline
 
 from xgboost_model import train_xgboost
 from linear_regression import Logistic_Regression
+from random_forest_clf import Random_Tree_Classifier
 
 def clean_up_data(filename):
 
@@ -249,11 +250,18 @@ if __name__ == '__main__':
 
     cleaned = clean_up_data(file)
     attendance = count_attendance(cleaned)
-
     revenue = analysis_revenue_improvement(attendance)
 
-    # Logistic_Regression(revenue, attendance)
-    # Random_Tree_Classifier(revenue, attendance)
+    choice = int(input("Model Choice:\n1. Logistic Regression\n2. Random Forest Classifier\n3. XGBoost\nEnter choice (1-3): "))
+
+    if choice == 1:
+        Logistic_Regression(revenue, attendance)
+    elif choice == 2:
+        Random_Tree_Classifier(revenue, attendance)
+    elif choice == 3:
+        train_xgboost(revenue, attendance)
+    else:
+        print("Not available")
     # Gradient_Boosting(revenue, attendance)
     # SVM(revenue, attendance)
-    train_xgboost(revenue, attendance)
+    
